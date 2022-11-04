@@ -2,6 +2,9 @@ package notifier
 
 import (
 	"bytes"
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -10,16 +13,29 @@ import (
 	"github.com/aggronmagi/prom-webhook/transformer"
 )
 
-// SendDingTalk send markdown message to dingtalk
-func SendDingTalk(notification model.Notification, defaultRobot string) (err error) {
+func GenSign(secret string, timestamp int64) (string, error) {
+	//timestamp + key 做sha256, 再进行base64 encode
+	stringToSign := fmt.Sprintf("%v", timestamp) + "\n" + secret
+	var data []byte
+	h := hmac.New(sha256.New, []byte(stringToSign))
+	_, err := h.Write(data)
+	if err != nil {
+		return "", err
+	}
+	signature := base64.StdEncoding.EncodeToString(h.Sum(nil))
+	return signature, nil
+}
 
-	markdown, robotURL, err := transformer.TransformToMarkdown(notification)
+// SendFeiShu send markdown message to dingtalk
+func SendFeiShu(notification model.Notification, defaultRobot string) (err error) {
+
+	msg, robotURL, err := transformer.TransformToFeiShuPost(notification)
 
 	if err != nil {
 		return
 	}
 
-	data, err := json.Marshal(markdown)
+	data, err := json.Marshal(msg)
 	if err != nil {
 		return
 	}

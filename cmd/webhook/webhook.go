@@ -1,36 +1,29 @@
 package main
 
 import (
-	"flag"
 	"net/http"
 
 	model "github.com/aggronmagi/prom-webhook/model"
 	"github.com/aggronmagi/prom-webhook/notifier"
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/pflag"
 )
 
 var (
-	h            bool
 	defaultRobot string
 	useDingTalk  bool
 	addr         string = "127.0.0.1:5001"
 )
 
 func init() {
-	flag.BoolVar(&h, "h", false, "help")
-	flag.StringVar(&defaultRobot, "defaultRobot", "", "global dingtalk robot webhook, you can overwrite by alert rule with annotations dingtalkRobot")
-	flag.BoolVar(&useDingTalk, "dingtalk", false, "true: use dingtalk default:feishu")
-	flag.StringVar(&addr, "addr", addr, "默认监听地址")
+	pflag.StringVarP(&defaultRobot, "webhook", "w", "", "webhook地址")
+	pflag.BoolVarP(&useDingTalk, "dingtalk", "d", false, "true: 使用钉钉 default:飞书")
+	pflag.StringVarP(&addr, "addr", "a", addr, "默认监听地址")
 }
 
 func main() {
 
-	flag.Parse()
-
-	if h {
-		flag.Usage()
-		return
-	}
+	pflag.Parse()
 
 	router := gin.Default()
 	router.POST("/webhook", func(c *gin.Context) {

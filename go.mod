@@ -2,7 +2,10 @@ module github.com/aggronmagi/prom-webhook
 
 go 1.17
 
-require github.com/gin-gonic/gin v1.1.4
+require (
+	github.com/gin-gonic/gin v1.1.4
+	github.com/spf13/pflag v1.0.5
+)
 
 require (
 	github.com/golang/protobuf v0.0.0-20171113180720-1e59b77b52bf // indirect

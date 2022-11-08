@@ -25,7 +25,7 @@ func TransformToFeiShuPost(notification model.Notification) (ret interface{}, ro
 		annotations := alert.Annotations
 		contents = append(contents, &model.PostContent{
 			Tag: "text",
-			Text: fmt.Sprintf("\t%s 开始时间:%s\n",
+			Text: fmt.Sprintf("  %s 开始时间:%s\n",
 				//annotations["summary"],
 				annotations["description"],
 				alert.StartsAt.Local().Format("15:04:05"),

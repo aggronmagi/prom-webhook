@@ -12,7 +12,7 @@ import (
 var (
 	defaultRobot string
 	useDingTalk  bool
-	addr         string = "127.0.0.1:5001"
+	addr         string = ":5001"
 )
 
 func init() {
@@ -22,7 +22,6 @@ func init() {
 }
 
 func main() {
-
 	pflag.Parse()
 
 	router := gin.Default()
@@ -48,5 +47,6 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"message": "send to dingtalk successful!"})
 
 	})
+
 	router.Run(addr)
 }

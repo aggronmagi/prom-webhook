@@ -56,12 +56,12 @@ type PostContent struct {
 
 func NewFeiShuPost(title string, contents []*PostContent) map[string]interface{} {
 	return map[string]interface{}{
-		"msg_type": "text",
+		"msg_type": "post",
 		"content": map[string]interface{}{
 			"post": map[string]interface{}{
 				"zh_cn": map[string]interface{}{
 					"title":   title,
-					"content": contents,
+					"content": []interface{}{contents},
 				},
 			},
 		},

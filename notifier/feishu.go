@@ -40,6 +40,7 @@ func SendFeiShu(notification model.Notification, defaultRobot string) (err error
 		return
 	}
 
+	//fmt.Println("req: ", string(data))
 	var dingTalkRobotURL string
 
 	if robotURL != "" {

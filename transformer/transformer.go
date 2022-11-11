@@ -14,7 +14,7 @@ func TransformToMarkdown(notification model.Notification) (markdown *model.DingT
 	status := notification.Status
 
 	annotations := notification.CommonAnnotations
-	robotURL = annotations["dingtalkRobot"]
+	robotURL = annotations["roboturl"]
 
 	var buffer bytes.Buffer
 

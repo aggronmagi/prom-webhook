@@ -42,7 +42,7 @@ func SendDingTalk(notification model.Notification, defaultRobot string) (err err
 		bytes.NewBuffer(data))
 
 	if err != nil {
-		fmt.Println("dingtalk robot url not found ignore:")
+		fmt.Println("dingtalk robot url not found ignore:", err)
 		return
 	}
 
@@ -55,8 +55,8 @@ func SendDingTalk(notification model.Notification, defaultRobot string) (err err
 	}
 
 	defer resp.Body.Close()
-	fmt.Println("response Status:", resp.Status)
-	fmt.Println("response Headers:", resp.Header)
+	// fmt.Println("response Status:", resp.Status)
+	// fmt.Println("response Headers:", resp.Header)
 
 	return
 }

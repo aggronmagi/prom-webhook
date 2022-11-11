@@ -41,21 +41,21 @@ func SendFeiShu(notification model.Notification, defaultRobot string) (err error
 	}
 
 	//fmt.Println("req: ", string(data))
-	var dingTalkRobotURL string
+	var feishuRobotURL string
 
 	if robotURL != "" {
-		dingTalkRobotURL = robotURL
+		feishuRobotURL = robotURL
 	} else {
-		dingTalkRobotURL = defaultRobot
+		feishuRobotURL = defaultRobot
 	}
 
-	if len(dingTalkRobotURL) == 0 {
+	if len(feishuRobotURL) == 0 {
 		return nil
 	}
 
 	req, err := http.NewRequest(
 		"POST",
-		dingTalkRobotURL,
+		feishuRobotURL,
 		bytes.NewBuffer(data))
 
 	if err != nil {
@@ -72,8 +72,8 @@ func SendFeiShu(notification model.Notification, defaultRobot string) (err error
 	}
 
 	defer resp.Body.Close()
-	fmt.Println("response Status:", resp.Status)
-	fmt.Println("response Headers:", resp.Header)
+	//fmt.Println("response Status:", resp.Status)
+	//fmt.Println("response Headers:", resp.Header)
 
 	return
 }

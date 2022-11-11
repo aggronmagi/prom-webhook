@@ -13,12 +13,14 @@ var (
 	defaultRobot string
 	useDingTalk  bool
 	addr         string = ":5001"
+	script       string
 )
 
 func init() {
 	pflag.StringVarP(&defaultRobot, "webhook", "w", "", "webhook地址")
 	pflag.BoolVarP(&useDingTalk, "dingtalk", "d", false, "true: 使用钉钉 default:飞书")
 	pflag.StringVarP(&addr, "addr", "a", addr, "默认监听地址")
+	//pflag.StringVarP(&script, "script", "s", script, "lua脚本，用于过滤及组装消息")
 }
 
 func main() {

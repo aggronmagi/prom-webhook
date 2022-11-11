@@ -1,22 +1,25 @@
-## Alertmanager Dingtalk Webhook
+## Alertmanager Webhook
 
-Webhook service support send Prometheus 2.0 alert message to Dingtalk.
+Webhook service support send Prometheus 2.0 alert message to Dingtalk/Feishu.
 
 ## How To Use
 
 ```
 cd cmd/webhook
 go build
-webhook -defaultRobot=https://oapi.dingtalk.com/robot/send?access_token=xxxx
+# 钉钉 
+webhook -d=true -a=:5001 -w=https://oapi.dingtalk.com/robot/send?access_token=xxxx
+# 飞书
+webhook -a=:5001 -w=https://open.feishu.cn/open-apis/bot/v2/hook/xxxxx
 ```
 
-```
-go run webhook.go -defaultRobot=https://oapi.dingtalk.com/robot/send?access_token=xxxx
-```
+Usage of ./webhook:
+  -a, --addr string      默认监听地址 (default ":5001")
+  -d, --dingtalk         true: 使用钉钉 default:飞书
+  -w, --webhook string   webhook地址
 
-* -defaultRobot: default dingtalk webhook url, all notifaction from alertmanager will direct to this webhook address.
 
-Or you can overwrite by add annotations to Prometheus alertrule to special the dingtalk webhook for each alert rule.
+使用-w 参数指定机器人web地址，或者 在告警规则内添加roboturl字段
 
 ```
 groups:
@@ -30,5 +33,5 @@ groups:
     annotations:
       summary: "Instance {{ $labels.instance }} CPU usgae high"
       description: "{{ $labels.instance }} CPU usage above 85% (current value: {{ $value }})"
-      dingtalkRobot: "https://oapi.dingtalk.com/robot/send?access_token=xxxx"
+      roboturl: "https://oapi.dingtalk.com/robot/send?access_token=xxxx"
 ```

@@ -13,7 +13,7 @@ func TransformToFeiShuPost(notification model.Notification) (ret interface{}, ro
 	status := notification.Status
 
 	annotations := notification.CommonAnnotations
-	robotURL = annotations["robot"]
+	robotURL = annotations["roboturl"]
 
 	//fmt.Printf("%#v\n", notification)
 

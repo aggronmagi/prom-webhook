@@ -31,6 +31,9 @@ func TransformToFeiShuPost(notification model.Notification) (ret interface{}, ro
 				alert.StartsAt.Local().Format("15:04:05"),
 			),
 		})
+		if robotURL == "" && annotations["roboturl"] != "" {
+			robotURL = annotations["roboturl"]
+		}
 	}
 
 	ret = model.NewFeiShuPost(title, contents)

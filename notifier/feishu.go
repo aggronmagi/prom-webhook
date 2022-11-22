@@ -49,6 +49,8 @@ func SendFeiShu(notification model.Notification, defaultRobot string) (err error
 		feishuRobotURL = defaultRobot
 	}
 
+	//fmt.Println(feishuRobotURL, string(data))
+
 	if len(feishuRobotURL) == 0 {
 		return nil
 	}
